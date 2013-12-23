@@ -4,10 +4,11 @@ function Godmode:__init()
 	self.admins = {}
 	self.godmodePlayers = {}
 	self.timer = Timer()
-	self.updateRate = 100
+	self.updateRate = 10
 	
 	-- Add admins
 	self:AddAdmin("STEAM_0:0:16870054")
+	self:AddAdmin("STEAM_0:1:40939579")
 	
 	-- Subscribe to events
 	Events:Subscribe("PlayerChat", self, self.PlayerChat)
@@ -28,7 +29,7 @@ function Godmode:PlayerChat(args)
 	local steamId = args.player:GetSteamId().id
 	local currentGodmode = self.godmodePlayers[steamId]
 	
-	print(steamId, currentGodmode)
+	if steamId == nil then return end
 	
 	if currentGodmode ~= nil then -- Godmode on
 		self.godmodePlayers[steamId] = nil

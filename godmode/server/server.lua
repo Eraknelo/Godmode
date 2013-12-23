@@ -25,13 +25,16 @@ end
 function Godmode:PlayerChat(args)
 	if args.text ~= "/godmode" or not self:IsAdmin(args.player) then return true end
 	
-	local currentGodmode = self.godmodePlayers[args.player:GetSteamId().id]
+	local steamId = args.player:GetSteamId().id
+	local currentGodmode = self.godmodePlayers[steamId]
 	
-	if currentGodmode == true then
-		self.godmodePlayers[args.player:GetSteamId().id] = nil
+	print(steamId, currentGodmode)
+	
+	if currentGodmode ~= nil then -- Godmode on
+		self.godmodePlayers[steamId] = nil
 		Network:Send(args.player, "GodmodeToggle", false)
 	else
-		self.godmodePlayers[args.player:GetSteamId().id] = args.player
+		self.godmodePlayers[steamId] = args.player
 		Network:Send(args.player, "GodmodeToggle", true)
 	end
 	

@@ -15,8 +15,10 @@ end
 function Godmode:GodmodeToggle(args)
 	self.godModeOn = args
 	if self.godModeOn then
+		Game:FireEvent("ply.makeinvulnerable")
 		Chat:Print("God mode enabled.", Color(255, 0, 0))
 	else
+		Game:FireEvent("ply.makevulnerable")
 		Chat:Print("God mode disabled.", Color(255, 0, 0))
 	end
 end
@@ -27,4 +29,4 @@ function Godmode:GodmodeHandle(args)
 end
 
 -- ========================= Initialize =========================
-godMode = Godmode()
+local godMode = Godmode()
